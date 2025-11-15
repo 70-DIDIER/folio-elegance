@@ -3,7 +3,13 @@ import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navLinks = ['À propos', 'Expérience', 'Formation', 'Compétences', 'Contact'];
+  const navLinks = ['À propos', 'Expérience', 'Formation', 'Compétences', 'Projets', 'Contact'];
+
+  const getLinkHref = (link: string) => {
+    if (link === 'À propos') return '#about';
+    if (link === 'Projets') return '#projects';
+    return `#${link.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(' ', '-')}`;
+  }
 
   return (
     <header className="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50">
@@ -12,7 +18,7 @@ const Header = () => {
           <a href="#hero" className="text-2xl font-bold text-cyan-400 hover:text-cyan-300 transition-colors">Portfolio.</a>
           <nav className="hidden md:flex space-x-8">
             {navLinks.map((link) => (
-              <a key={link} href={`#${link.toLowerCase().replace(' ', '-')}`} className="text-gray-300 hover:text-cyan-400 transition-colors font-medium">
+              <a key={link} href={getLinkHref(link)} className="text-gray-300 hover:text-cyan-400 transition-colors font-medium">
                 {link}
               </a>
             ))}
@@ -28,7 +34,7 @@ const Header = () => {
         <div className="md:hidden bg-gray-900">
           <nav className="flex flex-col items-center space-y-4 py-4">
             {navLinks.map((link) => (
-              <a key={link} href={`#${link.toLowerCase().replace(' ', '-')}`} onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors font-medium">
+              <a key={link} href={getLinkHref(link)} onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors font-medium">
                 {link}
               </a>
             ))}
